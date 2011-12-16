@@ -32,8 +32,8 @@
 		// substr, which returns '' in case of an empty substr (usually false)
 		$substr = create_function(
 			'$string,$start,$length=NULL', // is not used, only for definition
-
-			'$ret = call_user_func_array(\'substr\', func_get_args());'.
+			'$args = func_get_args();'.
+			'$ret = call_user_func_array(\'substr\', $args);'.
 			'if($ret === false){'.
 			'	return \'\';'.
 			'}else{'.
@@ -160,7 +160,7 @@
 						break;
 					case 'V':
 						if(($val = $get_arg($next,$args,$num)) === false){
-							$Oerr[] = 'Missing artument to option "'.$Earg.'"';
+							$Oerr[] = 'Missing argument to option "'.$Earg.'"';
 						}else{
 							$Ores[$opt][] = $val;
 						}
@@ -170,11 +170,11 @@
 						break;
 					case 'A':
 						if(($val = $get_arg($next,$args,$num)) === false){
-							$Oerr[] = 'Missing artument to option "'.$Earg.'"';
+							$Oerr[] = 'Missing argument to option "'.$Earg.'"';
 						}else{
 							$p = strpos($val, '=');
 							if($p === false){
-								$Oerr[] = 'Malformed artument to option "'.$Earg.'" (a "=" is missing)';
+								$Oerr[] = 'Malformed argument to option "'.$Earg.'" (a "=" is missing)';
 							}else if(isset($Ores[$opt][substr($val, 0, $p)])){
 								$Oerr[] = 'Duplicate key "'.substr($val, 0, $p).'" to option "'.$Earg.'"';
 							}else{
@@ -206,7 +206,7 @@
 							break;
 						case 'V':
 							if(($val = $get_arg($next,$args,$num)) === false){
-								$Oerr[] = 'Missing artument to option "'.$Earg.'"';
+								$Oerr[] = 'Missing argument to option "'.$Earg.'"';
 							}else{
 								$Ores[$opt][] = $val;
 							}
@@ -218,11 +218,11 @@
 							break;
 						case 'A':
 							if(($val = $get_arg($next,$args,$num)) === false){
-								$Oerr[] = 'Missing artument to option "'.$Earg.'"';
+								$Oerr[] = 'Missing argument to option "'.$Earg.'"';
 							}else{
 								$p = strpos($val, '=');
 								if($p === false){
-									$Oerr[] = 'Malformed artument to option "'.$Earg.'" (a "=" is missing)';
+									$Oerr[] = 'Malformed argument to option "'.$Earg.'" (a "=" is missing)';
 								}else if(isset($Ores[$opt][substr($val, 0, $p)])){
 									$Oerr[] = 'Duplicate key "'.substr($val, 0, $p).'" to option "'.$Earg.'"';
 								}else{
